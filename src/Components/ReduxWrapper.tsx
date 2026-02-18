@@ -14,7 +14,7 @@ export const ReduxWrapper = () => {
             todos={todos}
             add={(title) => dispatch(addTodo(title))}
             remove={(id) => dispatch(removeTodo(id))}
-            toggle={(id) => dispatch(toggleTodo(id))}
+            toggle={(id) => dispatch(toggleTodo(id))} //переключает статус между выполнено-не выполнено
         />
     );
 };
