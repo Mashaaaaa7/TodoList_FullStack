@@ -1,0 +1,137 @@
+:root {
+    --bg1: #0f172a;
+    --bg2: #1e293b;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --danger: #ef4444;
+    --glass: rgba(255, 255, 255, 0.08);
+    --text: #f1f5f9;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: radial-gradient(circle at 20% 30%, #6366f1, transparent 40%),
+    radial-gradient(circle at 80% 70%, #ec4899, transparent 40%),
+    linear-gradient(135deg, #0f172a, #1e293b);
+    background-attachment: fixed;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-wrapper {
+    width: 650px;
+}
+
+.switcher {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.switcher button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: 0.2s;
+}
+
+.switcher button.active {
+    background: #6366f1;
+}
+
+.card {
+    padding: 35px;
+    border-radius: 20px;
+    backdrop-filter: blur(25px);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+
+
+.filter-row {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-row button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.filter-row button.active {
+    background: var(--accent);
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    animation: fadeIn 0.3s ease;
+}
+
+.todo-item span {
+    cursor: pointer;
+}
+
+.todo-item.completed span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.delete-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+.progress-bar {
+    height: 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.stats {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+input[type="checkbox"] {
+    accent-color: var(--accent);
+    cursor: pointer;
+}
