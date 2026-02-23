@@ -36,7 +36,7 @@ export const TodoBoard: React.FC<Props> = ({ todos, add, remove, toggle }) => {
                         }
                     }}
                 >
-                    +
+                    Добавить задачу
                 </button>
             </div>
 
@@ -57,7 +57,6 @@ export const TodoBoard: React.FC<Props> = ({ todos, add, remove, toggle }) => {
                                 type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => toggle(todo.id)}
-                                style={{ width: 18, height: 18, cursor: "pointer", accentColor: "#4caf50" }}
                             />
                             <span>{todo.title}</span>
                         </div>
@@ -65,9 +64,8 @@ export const TodoBoard: React.FC<Props> = ({ todos, add, remove, toggle }) => {
                         <button
                             className="delete-btn"
                             onClick={() => remove(todo.id)}
-                            style={{ cursor: "pointer" }}
                         >
-                            ✕
+                            Удалить
                         </button>
                     </div>
                 ))}

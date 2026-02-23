@@ -1,11 +1,19 @@
-import { useState } from "react";
-import {ContextWrapper} from "./Components/ContextWrapper";
-import {ReduxWrapper} from "./Components/ReduxWrapper";
+import { useState, useEffect } from "react";
+import { ContextWrapper } from "./Components/ContextWrapper";
+import { ReduxWrapper } from "./Components/ReduxWrapper";
 import React from "react";
 
-
 export default function App() {
-    const [mode, setMode] = useState<"context" | "redux">("context");
+    // Загружаем сохраненный режим из localStorage или используем "context" по умолчанию
+    const [mode, setMode] = useState<"context" | "redux">(() => {
+        const savedMode = localStorage.getItem("appMode");
+        return (savedMode === "context" || savedMode === "redux") ? savedMode : "context";
+    });
+
+    // Сохраняем режим при изменении
+    useEffect(() => {
+        localStorage.setItem("appMode", mode);
+    }, [mode]);
 
     return (
         <div className="app-wrapper">

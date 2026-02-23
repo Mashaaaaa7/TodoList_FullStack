@@ -10,17 +10,17 @@
 
 * {
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     margin: 0;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     background: radial-gradient(circle at 20% 30%, #6366f1, transparent 40%),
     radial-gradient(circle at 80% 70%, #ec4899, transparent 40%),
     linear-gradient(135deg, #0f172a, #1e293b);
-    background-attachment: fixed;
-    color: white;
+    color: var(--text);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -29,8 +29,21 @@ body {
 
 .app-wrapper {
     width: 650px;
+    padding: 20px;
 }
 
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Переключатель */
 .switcher {
     display: flex;
     justify-content: center;
@@ -39,57 +52,175 @@ body {
 }
 
 .switcher button {
-    padding: 10px 20px;
+    padding: 10px 25px;
     border-radius: 12px;
-    border: none;
     cursor: pointer;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    transition: 0.2s;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.switcher button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .switcher button.active {
-    background: #6366f1;
+    background: var(--accent);
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.5);
 }
 
+.switcher button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.switcher button:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+/* Карточка */
 .card {
     padding: 35px;
-    border-radius: 20px;
+    border-radius: 24px;
     backdrop-filter: blur(25px);
-    background: rgba(255,255,255,0.08);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    background: var(--glass);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-
-
-.filter-row {
-    margin: 20px 0;
+/* Форма */
+.card > div:first-of-type {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 30px;
 }
 
-.filter-row button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+.card input[type="text"] {
+    flex: 1;
+    padding: 15px 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-.filter-row button.active {
+.card input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.card input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Общий стиль для кнопок в карточке (кроме delete-btn) */
+.card button:not(.delete-btn) {
+    padding: 15px 30px;
+    border-radius: 16px;
+    border: none;
     background: var(--accent);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.card button:not(.delete-btn):hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.5);
+}
+
+/* Список задач */
+.card > div:last-of-type {
+    margin-top: 20px;
 }
 
 .todo-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 15px;
+    border-radius: 16px;
     margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     animation: fadeIn 0.3s ease;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(5px);
+}
+
+.todo-item.completed {
+    opacity: 0.7;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.todo-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+}
+
+.todo-item:hover::before {
+    transform: scaleY(1);
+}
+
+.todo-item.completed::before {
+    background: #10b981;
+}
+
+.todo-item > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.todo-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--accent);
 }
 
 .todo-item span {
-    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    word-break: break-word;
 }
 
 .todo-item.completed span {
@@ -97,41 +228,123 @@ body {
     opacity: 0.6;
 }
 
-.delete-btn {
-    background: var(--danger);
-    color: white;
-}
-
-.delete-btn:hover {
-    opacity: 0.8;
-}
-
-.progress-bar {
-    height: 8px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 0.3s ease;
-}
-
-.stats {
-    margin-top: 10px;
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-input[type="checkbox"] {
-    accent-color: var(--accent);
+/* Кнопка удаления - ИСПРАВЛЕНО с высоким приоритетом */
+.card .delete-btn {
+    background: var(--danger) !important;  /* Принудительно красный */
+    color: white !important;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    margin-left: 10px;
+    box-shadow: none;  /* Убираем тень от общей кнопки */
+}
+
+.card .delete-btn:hover {
+    background: #dc2626 !important;  /* Темно-красный при наведении */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px -3px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Альтернативный вариант с круглой кнопкой (раскомментируйте если нужен крестик) */
+/*
+.card .delete-btn {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: var(--danger) !important;
+    color: white !important;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    min-width: auto;
+}
+
+.card .delete-btn:hover {
+    background: #dc2626 !important;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px -3px rgba(239, 68, 68, 0.4) !important;
+}
+*/
+
+/* Статистика */
+.card > div:last-child {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 700px) {
+    .app-wrapper {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card > div:first-of-type {
+        flex-direction: column;
+    }
+
+    .card button:not(.delete-btn) {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .card .delete-btn {
+        padding: 6px 12px;
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .switcher {
+        flex-wrap: wrap;
+    }
+
+    .switcher button {
+        flex: 1;
+        min-width: 100px;
+        padding: 8px 15px;
+    }
+
+    .todo-item {
+        padding: 12px;
+    }
+
+    .card .delete-btn {
+        padding: 5px 10px;
+        min-width: 60px;
+        font-size: 0.85rem;
+    }
 }
