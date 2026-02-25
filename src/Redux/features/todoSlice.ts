@@ -1,3 +1,5 @@
+//описываем модель состояния, хранит данные между состояниями
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Todo = {
